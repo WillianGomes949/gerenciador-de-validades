@@ -1,6 +1,6 @@
 
 export default async function handler(req, res) {
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzwjIRJrTbLZHWRl9nnQdJ7I-KAd_ytRHpl0RwYi55tfby62Ox3RWN_rOGcHpDM5GTQ/exec";
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyNErWAa1-Wkg7tOMW-em3Jc2C8BIdESMa2Z6G1heqR6KJJdDjJ2e8hVVU-ZW3o0Hmc/exec";
 
   const fetchOptions = {
     method: req.method,
