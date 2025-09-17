@@ -1,7 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react';
 import { getProducts, addProduct, updateProduct, deleteProduct } from '@/lib/api';
-import { Tooltip } from 'react-tooltip';
 
 const INITIAL_FORM_STATE = { id: '', nome_produto: '', quantidade: '', preco: '', validade: '' };
 
