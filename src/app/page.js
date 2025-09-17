@@ -2,9 +2,39 @@
 import { useState, useEffect } from 'react';
 import { getProducts, addProduct, updateProduct, deleteProduct } from '@/lib/api';
 
-// --- Estado inicial do formulário ---
 const INITIAL_FORM_STATE = { id: '', nome_produto: '', quantidade: '', preco: '', validade: '' };
 
+// ===================================================================================
+// NOVA FUNÇÃO UTILITÁRIA - A Solução Centralizada
+// ===================================================================================
+/**
+ * Converte uma string de data (qualquer formato comum) para um objeto Date válido.
+ * @param {string | Date} dateStr - A string de data (ex: '2025-09-17', '17/09/2025', ou um ISO completo).
+ * @returns {Date | null} - Um objeto Date válido ou null se a conversão falhar.
+ */
+function parseDate(dateStr) {
+  if (!dateStr) return null; // Retorna nulo se a entrada for vazia
+  if (dateStr instanceof Date) return dateStr; // Se já for uma data, retorna ela mesma
+
+  let date = new Date(dateStr); // Tenta o formato padrão (ISO) primeiro
+  
+  // Se a tentativa padrão falhar, tenta o formato DD/MM/AAAA
+  if (isNaN(date.getTime())) {
+    const parts = String(dateStr).split('T')[0].split('/');
+    if (parts.length === 3) {
+      // Remonta como AAAA-MM-DD
+      const isoDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+      date = new Date(isoDate);
+    }
+  }
+
+  // Retorna a data válida ou null se todas as tentativas falharem
+  return isNaN(date.getTime()) ? null : date;
+}
+
+// ===================================================================================
+// SEU COMPONENTE HomePage - Completo e usando a nova função parseDate
+// ===================================================================================
 export default function HomePage() {
   // --- Estados do Componente ---
   const [products, setProducts] = useState([]);
@@ -14,26 +44,19 @@ export default function HomePage() {
   const [formState, setFormState] = useState(INITIAL_FORM_STATE);
 
   // --- Funções de Lógica ---
-
-  /**
-   * Calcula a cor e o texto de status com base na data de validade.
-   * @param {string} validadeStr - A data de validade no formato 'YYYY-MM-DD'.
-   * @returns {object} - Um objeto com a classe de cor, o texto e o título para o tooltip.
-   */
   const getValidadeStatus = (validadeStr) => {
-    if (!validadeStr) return { cor: 'text-slate-500', texto: 'Sem data', title: 'Nenhuma data de validade fornecida' };
+    const dataValidade = parseDate(validadeStr);
+
+    if (!dataValidade) {
+      return { cor: 'text-slate-500', texto: 'Data inválida', title: `Formato original não reconhecido: ${validadeStr || 'vazio'}` };
+    }
     
     const hoje = new Date();
-    hoje.setHours(0, 0, 0, 0); // Zera a hora para comparar apenas a data
-
-    // Adiciona o fuso horário para evitar problemas de um dia a menos
-    const dataValidade = new Date(validadeStr + 'T00:00:00');
-    if (isNaN(dataValidade)) return { cor: 'text-slate-500', texto: 'Data inválida', title: 'A data fornecida não é válida' };
+    hoje.setHours(0, 0, 0, 0);
 
     const diffTime = dataValidade.getTime() - hoje.getTime();
     const diasRestantes = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-    // **CORREÇÃO AQUI**: A propriedade 'tooltip' foi renomeada para 'title'
+    
     const title = `Data de Validade: ${dataValidade.toLocaleDateString('pt-BR', { timeZone: 'UTC' })}`;
     let cor, texto;
     
@@ -44,45 +67,37 @@ export default function HomePage() {
       cor = 'text-orange-500 font-semibold';
       texto = `Vence em ${diasRestantes} dias`;
     } else if (diasRestantes >= 0) {
-      cor = 'text-red-600 font-bold';
+      cor = 'text-red-600 font-semibold';
       if (diasRestantes === 0) {
-        texto = 'VENCE HOJE!';
-        cor += ' animate-pulse';
+        texto = 'Vence Hoje!';
+        cor += ' animate-pulse font-semibold';
       } else if (diasRestantes === 1) {
-        texto = 'VENCE AMANHÃ!';
+        texto = 'Vence amanhã!';
       } else {
-        texto = `VENCE EM ${diasRestantes} DIAS!`;
+        texto = `Vence em ${diasRestantes} dias!`;
       }
     } else {
-      cor = 'text-red-800 bg-red-100 p-1 rounded font-bold animate-pulse';
+      cor = 'text-red-800 bg-red-100 p-1 rounded font-semibold animate-pulse';
       texto = `VENCIDO há ${Math.abs(diasRestantes)} dias`;
     }
-
-    return { cor, texto, title }; // Retorna 'title'
+    return { cor, texto, title }; 
   };
-
-  /**
-   * Ordena a lista de produtos por data de validade (mais próximos primeiro)
-   * e depois por quantidade (maior primeiro).
-   */
+  
   const sortProducts = (list) => {
     return [...list].sort((a, b) => {
-      const dateA = new Date(a.validade);
-      const dateB = new Date(b.validade);
+      const dateA = parseDate(a.validade);
+      const dateB = parseDate(b.validade);
 
-      if (isNaN(dateA)) return 1;
-      if (isNaN(dateB)) return -1;
+      if (!dateA) return 1;
+      if (!dateB) return -1;
       
-      // Ordena por data
       if (dateA - dateB !== 0) return dateA - dateB;
       
-      // Se as datas forem iguais, ordena por quantidade (maior primeiro)
       return b.quantidade - a.quantidade;
     });
   };
 
   // --- Funções de Interação com a API (Handlers) ---
-
   const fetchProducts = async () => {
     setIsLoading(true);
     try {
@@ -136,24 +151,21 @@ export default function HomePage() {
   };
 
   // --- Efeitos (Lifecycle) ---
-
   useEffect(() => {
     fetchProducts();
   }, []);
 
   useEffect(() => {
     if (editingProduct) {
-      // Formata a data para o input type="date"
-      const formattedDate = editingProduct.validade ? new Date(editingProduct.validade).toISOString().split('T')[0] : '';
+      const dateObj = parseDate(editingProduct.validade);
+      const formattedDate = dateObj ? dateObj.toISOString().split('T')[0] : '';
       setFormState({ ...editingProduct, validade: formattedDate });
     } else {
       setFormState(INITIAL_FORM_STATE);
     }
   }, [editingProduct]);
 
-
   // --- Renderização do Componente (JSX) ---
-
   return (
     <div className="min-h-screen bg-slate-100 font-sans">
       <main className="container mx-auto p-4 md:p-8">
@@ -202,7 +214,6 @@ export default function HomePage() {
                     </div>
                     <div className="text-center md:col-span-1">
                       <p className="text-xs text-slate-500">Validade</p>
-                      {/* **CORREÇÃO AQUI**: Substituído pelo atributo 'title' */}
                       <p className={status.cor} title={status.title}>
                         {status.texto}
                       </p>
