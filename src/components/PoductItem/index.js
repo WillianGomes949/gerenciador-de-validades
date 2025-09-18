@@ -13,7 +13,7 @@ sm:grid-cols-3 lg:grid-cols-6 dark:bg-slate-800 dark:border-slate-700 dark:text-
       {/* Nome e ID (Sempre no topo em telas menores) */}
       <div className="col-span-2 sm:col-span-4 lg:col-span-2">
         <p className="font-bold text-slate-800 dark:text-slate-200">{product.nome_produto}</p>
-        <p className="text-sm text-slate-600 dark:text-slate-400 ">ID: {product.id}</p>
+        <p className="text-sm text-slate-600 dark:text-slate-400 ">EAN: {product.id}</p>
       </div>
 
       {/* Quantidade */}

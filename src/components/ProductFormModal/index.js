@@ -52,14 +52,14 @@ export default function ProductFormModal({
         
         <form onSubmit={handleSubmit}>
           <fieldset disabled={isSubmitting} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <input type="text" name="id" value={formState.id} onChange={handleInputChange} placeholder="ID (Código de Barras)" required disabled={isEditing} className="p-3 border-lime-300 border-1 rounded-md disabled:bg-slate-200 dark:disabled:bg-slate-700"/>
-            <input type="text" name="nome_produto" value={formState.nome_produto} onChange={handleInputChange} placeholder="Nome do Produto" required className="p-3 border-lime-300 border-1 rounded-md"/>
-            <input type="number" name="quantidade" value={formState.quantidade} onChange={handleInputChange} placeholder="Quantidade" required className="p-3 border-lime-300 border-1 rounded-md"/>
-            <input type="number" name="preco" value={formState.preco} onChange={handleInputChange} placeholder="Preço (ex: 9.99)" step="0.01" required className="p-3 border-lime-300 border-1 rounded-md"/>
-            <input type="date" name="validade" value={formState.validade} onChange={handleInputChange} required className="p-3 border-lime-300 border-1 rounded-md md:col-span-2"/>
+            <input type="text" name="id" value={formState.id} onChange={handleInputChange} placeholder="ID (Código de Barras)" required disabled={isEditing} className="p-3 border-lime-300 border-1 rounded-md disabled:bg-slate-200 dark:disabled:bg-slate-700 col-span-2 md:col-span-1"/>
+            <input type="text" name="nome_produto" value={formState.nome_produto} onChange={handleInputChange} placeholder="Nome do Produto" required className="p-3 border-lime-300 border-1 rounded-md col-span-2 md:col-span-1"/>
+            <input type="number" name="quantidade" value={formState.quantidade} onChange={handleInputChange} placeholder="Quantidade" required className="p-3 border-lime-300 border-1 rounded-md col-span-2 md:col-span-1"/>
+            <input type="number" name="preco" value={formState.preco} onChange={handleInputChange} placeholder="Preço (ex: 9.99)" step="0.01" required className="p-3 border-lime-300 border-1 rounded-md col-span-2 md:col-span-1"/>
+            <input type="date" name="validade" value={formState.validade} onChange={handleInputChange} required className="p-3 border-lime-300 border-1 rounded-md md:col-span-2 col-span-2"/>
             
-            <div className="md:col-span-2 flex gap-4 mt-2">
-              <button type="submit" className="flex-grow p-3 bg-lime-600 text-white font-bold rounded-md hover:bg-lime-700 disabled:bg-lime-300">
+            <div className="md:col-span-2 flex gap-4 mt-2 col-span-2">
+              <button type="submit" className="flex-grow p-3 bg-lime-600 text-white font-bold rounded-md hover:bg-lime-700 disabled:bg-lime-300 ">
                 {isSubmitting ? 'Salvando...' : (isEditing ? 'Salvar Alterações' : 'Adicionar Produto')}
               </button>
             </div>
