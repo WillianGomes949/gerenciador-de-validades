@@ -105,7 +105,7 @@ export default function ProductFormModal({
             />
             <input
                 type="text"
-                name="Seção"
+                name="secao"
                 value={formState.secao}
                 onChange={handleInputChange}
                 placeholder="Seção"

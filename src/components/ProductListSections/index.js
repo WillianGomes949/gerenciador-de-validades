@@ -1,9 +1,14 @@
 // src/components/ProductListWithFilters.js
 "use client";
 import ProductItem from "../PoductItem"; // Verifique se o caminho está correto
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect } from "react";
 
-export default function ProductListSections({ products, isLoading, onEdit, onDelete }) {
+export default function ProductListSections({
+  products,
+  isLoading,
+  onEdit,
+  onDelete,
+}) {
   // NOVO ESTADO: para guardar a seção que está selecionada
   const [selectedSection, setSelectedSection] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,7 +18,7 @@ export default function ProductListSections({ products, isLoading, onEdit, onDel
   // Isso nos permite criar os botões de filtro para todas as seções existentes.
   const groupedProducts = useMemo(() => {
     return products.reduce((acc, product) => {
-      const section = product.secao || 'Sem Seção';
+      const section = product.secao || "Sem Seção";
       if (!acc[section]) {
         acc[section] = [];
       }
@@ -34,7 +39,10 @@ export default function ProductListSections({ products, isLoading, onEdit, onDel
   const totalPages = Math.ceil(productsOfSelectedSection.length / itemsPerPage);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentProductsToDisplay = productsOfSelectedSection.slice(indexOfFirstItem, indexOfLastItem);
+  const currentProductsToDisplay = productsOfSelectedSection.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   // EFEITO IMPORTANTE: Reseta a página para 1 sempre que uma nova seção é selecionada.
   useEffect(() => {
@@ -56,7 +64,7 @@ export default function ProductListSections({ products, isLoading, onEdit, onDel
   return (
     <div className="bg-white p-6 rounded-lg shadow-md dark:bg-slate-800">
       <h2 className="text-center sm:text-left text-2xl font-semibold text-slate-700 mb-4 dark:text-slate-200">
-    Filtrar por Seção:
+        Filtrar por Seção
       </h2>
 
       {isLoading ? (
@@ -66,27 +74,30 @@ export default function ProductListSections({ products, isLoading, onEdit, onDel
           {/* 4. Botões de Filtro por Seção */}
           <div className="mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
             <div className="flex flex-wrap gap-2">
-              {sectionNames.map(name => (
+              <button onClick={() => setSelectedSection(null)} className="px-4 py-2 text-sm font-semibold rounded-full bg-lime-200 text-lime-700 hover:bg-lime-300 dark:bg-lime-600 dark:text-lime-200 dark:hover:bg-lime-700">Limpar</button>
+              {sectionNames.map((name) => (
                 <button
                   key={name}
                   onClick={() => handleSectionClick(name)}
                   className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 
-                    ${selectedSection === name 
-                      ? 'bg-indigo-600 text-white shadow-md' 
-                      : 'bg-slate-200 text-slate-700 hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600'
+                    ${
+                      selectedSection === name
+                        ? "bg-indigo-600 text-white shadow-md"
+                        : "bg-slate-200 text-slate-700 hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600"
                     }`}
                 >
                   {name}
                 </button>
               ))}
+              
             </div>
           </div>
-          
+
           {/* 5. Renderização Condicional dos Produtos */}
           {selectedSection ? (
             productsOfSelectedSection.length > 0 ? (
               <div className="space-y-4">
-                {currentProductsToDisplay.map(product => (
+                {currentProductsToDisplay.map((product) => (
                   <ProductItem
                     key={product.id}
                     product={product}
@@ -96,18 +107,36 @@ export default function ProductListSections({ products, isLoading, onEdit, onDel
                 ))}
               </div>
             ) : (
-              <p className="text-center text-slate-500 dark:text-slate-400">Nenhum produto encontrado nesta seção.</p>
+              <p className="text-center text-slate-500 dark:text-slate-400">
+                Nenhum produto encontrado nesta seção.
+              </p>
             )
           ) : (
-             <p className="text-center text-slate-500 dark:text-slate-400 py-8">Selecione uma seção acima para ver os produtos.</p>
+            <p className="text-center text-slate-500 dark:text-slate-400 py-4">
+              Selecione uma seção acima para ver os produtos.
+            </p>
           )}
 
           {/* 6. Controles da Paginação (só aparecem se uma seção for selecionada e tiver mais de uma página) */}
           {selectedSection && totalPages > 1 && (
             <div className="flex justify-center items-center gap-4 mt-6 pt-4 border-t border-slate-200 dark:border-slate-700">
-              <button onClick={handlePrevPage} disabled={currentPage === 1} className="px-4 py-2 bg-slate-200 dark:bg-slate-600 rounded-md disabled:opacity-50">Anterior</button>
-              <span className="font-semibold dark:text-slate-200">Página {currentPage} de {totalPages}</span>
-              <button onClick={handleNextPage} disabled={currentPage === totalPages} className="px-4 py-2 bg-slate-200 dark:bg-slate-600 rounded-md disabled:opacity-50">Próxima</button>
+              <button
+                onClick={handlePrevPage}
+                disabled={currentPage === 1}
+                className="px-4 py-2 bg-slate-200 dark:bg-slate-600 rounded-md disabled:opacity-50"
+              >
+                Anterior
+              </button>
+              <span className="font-semibold dark:text-slate-200">
+                Página {currentPage} de {totalPages}
+              </span>
+              <button
+                onClick={handleNextPage}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 bg-slate-200 dark:bg-slate-600 rounded-md disabled:opacity-50"
+              >
+                Próxima
+              </button>
             </div>
           )}
         </>
