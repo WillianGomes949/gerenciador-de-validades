@@ -14,6 +14,8 @@ sm:grid-cols-3 lg:grid-cols-6 dark:bg-slate-800 dark:border-slate-700 dark:text-
       <div className="col-span-2 sm:col-span-4 lg:col-span-2">
         <p className="font-bold text-slate-800 dark:text-slate-200">{product.nome_produto}</p>
         <p className="text-sm text-slate-600 dark:text-slate-400 ">EAN: {product.id}</p>
+        <p className="text-sm text-slate-600 dark:text-slate-400 ">Seção: {product.secao}</p>
+
       </div>
 
       {/* Quantidade */}

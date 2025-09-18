@@ -1,6 +1,6 @@
 // src/utils/productUtils.js
 
-export const INITIAL_FORM_STATE = { id: '', nome_produto: '', quantidade: '', preco: '', validade: '' };
+export const INITIAL_FORM_STATE = { id: '', nome_produto: '', quantidade: '', preco: '', validade: '', secao: '' };
 
 export function parseDate(dateStr) {
   if (!dateStr) return null;

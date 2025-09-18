@@ -38,7 +38,7 @@ export default function ProductFormModal({
 
   return (
     <div
-      className="dark:bg-slate-900 dark:text-slate-200 dark:bg-black/50 dark:bg-opacity-60 fixed inset-0 bg-black/50 z-40 flex justify-center items-center "
+      className="dark:bg-slate-900 dark:text-slate-200 dark:bg-opacity-60 fixed inset-0 bg-black/50 z-40 flex justify-center items-center "
       onClick={onClose}
     >
       <div
@@ -103,6 +103,15 @@ export default function ProductFormModal({
               required
               className="p-3 border-lime-300 border-1 rounded-md col-span-2 md:col-span-1"
             />
+            <input
+                type="text"
+                name="Seção"
+                value={formState.secao}
+                onChange={handleInputChange}
+                placeholder="Seção"
+                required
+                className="p-3 border-lime-300 border-1 rounded-md col-span-2 md:col-span-1"
+              />
 
             <div className="col-span-2 md:col-span-2">
               <label

@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'gerenciador-de-velidades',
+  title: 'gerenciador de validades',
   description: 'Criado com Next.js e PWA',
   // Adicione as tags do manifest aqui
   manifest: '/manifest.json',
@@ -17,6 +17,10 @@ export const viewport = {
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   )

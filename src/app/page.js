@@ -1,10 +1,16 @@
 // app/page.js
 "use client";
-import { useState, useEffect } from 'react';
-import { getProducts, addProduct, updateProduct, deleteProduct } from '@/lib/api';
-import ProductFormModal from '@/components/ProductFormModal';
-import ProductList from '@/components/ProductList';
-import { sortProducts } from '@/utils/productUtils';
+import { useState, useEffect } from "react";
+import {
+  getProducts,
+  addProduct,
+  updateProduct,
+  deleteProduct,
+} from "@/lib/api";
+import ProductFormModal from "@/components/ProductFormModal";
+import ProductList from "@/components/ProductList";
+import { sortProducts } from "@/utils/productUtils";
+import ProductListSections from "@/components/ProductListSections";
 
 export default function HomePage() {
   const [products, setProducts] = useState([]);
@@ -59,17 +65,17 @@ export default function HomePage() {
       setIsSubmitting(false);
     }
   };
-  
+
   const handleOpenAddModal = () => {
     setEditingProduct(null);
     setIsModalOpen(true);
   };
-  
+
   const handleOpenEditModal = (product) => {
     setEditingProduct(product);
     setIsModalOpen(true);
   };
-  
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -77,23 +83,40 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 font-sans dark:bg-slate-900 dark:text-slate-200">
       <main className="container mx-auto p-4 md:p-8">
-        <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-y-4">
-          <h1 className="text-3xl font-bold sm:text-4xl font-bold text-slate-800 dark:text-slate-200">Controle de Validades</h1>
-          <button 
-            onClick={handleOpenAddModal}
-            className="px-5 py-3 bg-lime-600 text-white font-bold rounded-md hover:bg-lime-700 transition-colors shadow-sm"
-          >
-            Adicionar Produto
-          </button>
-        </div>
-        
-        <ProductList
+        <section>
+          <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-y-4">
+            <h1 className="text-3xl font-bold sm:text-4xl text-slate-800 dark:text-slate-200">
+              Controle de Validades
+            </h1>
+            <button
+              onClick={handleOpenAddModal}
+              className="px-5 py-3 bg-lime-600 text-white font-bold rounded-md hover:bg-lime-700 transition-colors shadow-sm"
+            >
+              Adicionar Produto
+            </button>
+          </div>
+
+          <ProductList
             products={products}
             isLoading={isLoading}
             onEdit={handleOpenEditModal}
             onDelete={handleDelete}
-        />
+          />
+        </section>
 
+        <section className="mt-8 ">
+          <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-y-4">
+            <h1 className="text-3xl font-bold sm:text-4xl text-slate-800 dark:text-slate-200">
+              Lista por Seção
+            </h1>
+          </div>
+          <ProductListSections
+            products={products}
+            isLoading={isLoading}
+            onEdit={handleOpenEditModal}
+            onDelete={handleDelete}
+          />
+        </section>
       </main>
 
       <ProductFormModal
