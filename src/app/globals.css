@@ -6,12 +6,3 @@
   }
 }
 
-/* Deixa o texto do date input cinza quando vazio */
-input[type="date"]::-webkit-datetime-edit {
-  color: #9ca3af !important; /* Um cinza similar a um placeholder */
-}
-
-/* Deixa o texto com a cor normal quando uma data válida é inserida */
-input[type="date"]:valid::-webkit-datetime-edit {
-  color: inherit !important; /* Usa a cor de texto padrão do seu site */
-}

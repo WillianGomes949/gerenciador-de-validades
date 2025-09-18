@@ -104,14 +104,23 @@ export default function ProductFormModal({
               className="p-3 border-lime-300 border-1 rounded-md col-span-2 md:col-span-1"
             />
 
-            <input
-              type="date"
-              name="validade"
-              value={formState.validade}
-              onChange={handleInputChange}
-              required
-              className="p-3 border-lime-300 border-1 rounded-md col-span-2 md:col-span-2 w-full min-h-[48px] text-base"
-            />
+            <div className="col-span-2 md:col-span-2">
+              <label
+                htmlFor="validade"
+                className="block mb-1 text-sm font-medium text-gray-600 dark:text-gray-500 md:sr-only"
+              >
+                Data de Validade
+              </label>
+              <input
+                id="validade"
+                type="date"
+                name="validade"
+                value={formState.validade}
+                onChange={handleInputChange}
+                required
+                className="p-3 border-lime-300 border-1 rounded-md w-full min-h-[48px] text-base "
+              />
+            </div>
 
             <div className="md:col-span-2 flex gap-4 mt-2 col-span-2">
               <button
