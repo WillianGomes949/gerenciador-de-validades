@@ -56,7 +56,7 @@ export default function ProductListSections({ products, isLoading, onEdit, onDel
   return (
     <div className="bg-white p-6 rounded-lg shadow-md dark:bg-slate-800">
       <h2 className="text-center sm:text-left text-2xl font-semibold text-slate-700 mb-4 dark:text-slate-200">
-        Lista de Produtos
+    Filtrar por Seção:
       </h2>
 
       {isLoading ? (
@@ -65,7 +65,6 @@ export default function ProductListSections({ products, isLoading, onEdit, onDel
         <>
           {/* 4. Botões de Filtro por Seção */}
           <div className="mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
-            <h3 className="text-lg font-semibold text-slate-600 dark:text-slate-300 mb-3">Filtrar por Seção:</h3>
             <div className="flex flex-wrap gap-2">
               {sectionNames.map(name => (
                 <button
