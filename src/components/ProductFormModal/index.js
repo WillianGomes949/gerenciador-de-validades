@@ -98,7 +98,7 @@ export default function ProductFormModal({
               name="preco"
               value={formState.preco}
               onChange={handleInputChange}
-              placeholder="Preço (ex: 9.99)"
+              placeholder="Preço (ex: 9,99)"
               step="0.01"
               required
               className="p-3 border-lime-300 border-1 rounded-md col-span-2 md:col-span-1"

@@ -74,7 +74,12 @@ export default function ProductListSections({
           {/* 4. Botões de Filtro por Seção */}
           <div className="mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
             <div className="flex flex-wrap gap-2">
-              <button onClick={() => setSelectedSection(null)} className="px-4 py-2 text-sm font-semibold rounded-full bg-lime-200 text-lime-700 hover:bg-lime-300 dark:bg-lime-600 dark:text-lime-200 dark:hover:bg-lime-700">Limpar</button>
+              <button
+                onClick={() => setSelectedSection(null)}
+                className="px-4 py-2 text-sm font-semibold rounded-full bg-lime-200 text-lime-700 hover:bg-lime-300 dark:bg-lime-600 dark:text-lime-200 dark:hover:bg-lime-700"
+              >
+                Limpar
+              </button>
               {sectionNames.map((name) => (
                 <button
                   key={name}
@@ -89,7 +94,6 @@ export default function ProductListSections({
                   {name}
                 </button>
               ))}
-              
             </div>
           </div>
 

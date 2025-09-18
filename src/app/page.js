@@ -11,6 +11,7 @@ import ProductFormModal from "@/components/ProductFormModal";
 import ProductList from "@/components/ProductList";
 import { sortProducts } from "@/utils/productUtils";
 import ProductListSections from "@/components/ProductListSections";
+import ExportButtons from '@/components/ExportButtons';
 
 export default function HomePage() {
   const [products, setProducts] = useState([]);
@@ -84,6 +85,11 @@ export default function HomePage() {
     <div className="min-h-screen bg-slate-50 text-slate-800 font-sans dark:bg-slate-900 dark:text-slate-200">
       <main className="container mx-auto p-4 md:p-8">
         <section className="mb-8 ">
+  
+            {/* Passamos a lista COMPLETA de produtos para ele */}
+            {!isLoading && products.length > 0 && (
+              <ExportButtons products={products} />
+            )}
 
           <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-y-4">
             <h1 className="text-3xl font-bold sm:text-4xl text-slate-800 dark:text-slate-200">
