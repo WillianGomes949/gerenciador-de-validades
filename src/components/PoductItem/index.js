@@ -7,8 +7,8 @@ export default function ProductItem({ product, onEdit, onDelete }) {
 
   return (
     <div
-      className="grid grid-cols-2 gap-x-4 gap-y-2 p-4 bg-slate-50 border-slate-200 border-2 rounded-md hover:shadow-md transition-shadow
-sm:grid-cols-4 lg:grid-cols-6 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200"
+      className="grid grid-cols-2 gap-x-3 gap-y-3 p-4 bg-slate-50 border-slate-200 border-2 rounded-md hover:shadow-md transition-shadow
+sm:grid-cols-3 lg:grid-cols-6 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200"
     >
       {/* Nome e ID (Sempre no topo em telas menores) */}
       <div className="col-span-2 sm:col-span-4 lg:col-span-2">
@@ -32,14 +32,14 @@ sm:grid-cols-4 lg:grid-cols-6 dark:bg-slate-800 dark:border-slate-700 dark:text-
 
       {/* Validade */}
       <div className="col-span-2 text-center sm:col-span-1 sm:text-left lg:text-center">
-        <p className="text-xs text-slate-500">Validade</p>
+        <p className="text-xs text-slate-500 mb-2">Validade</p>
         <p className={status.cor} title={status.title}>
           {status.texto}
         </p>
       </div>
 
       {/* Botões de Ação */}
-      <div className="col-span-2 sm:col-span-1 flex justify-end items-center gap-2">
+      <div className="col-span-2 sm:col-span-1 flex justify-center sm:justify-end lg:justify-center items-center gap-2 align-middle sm:gap-4 lg:gap-2 sm:items-end lg:items-center">
         <button
           onClick={() => onEdit(product)}
           className="px-3 py-1 text-sm bg-lime-600 text-white rounded-md hover:bg-lime-700 "

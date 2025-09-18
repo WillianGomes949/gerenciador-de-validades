@@ -35,23 +35,25 @@ export const getValidadeStatus = (validadeStr) => {
   let cor, texto;
   
   if (diasRestantes > 30) {
-    cor = 'text-green-600 font-semibold';
+    cor = 'text-green-600 bg-green-100 p-1 rounded font-bold';
     texto = `Vence em ${diasRestantes} dias`;
   } else if (diasRestantes > 10) {
-    cor = 'text-orange-500 font-semibold';
+    cor = 'text-orange-500 bg-orange-100 p-1 rounded font-bold';
     texto = `Vence em ${diasRestantes} dias`;
   } else if (diasRestantes >= 0) {
     cor = 'text-red-600 font-bold';
     if (diasRestantes === 0) {
       texto = 'Vence Hoje!';
-      cor += ' animate-[bounce_0.8s_ease-in-out_infinite]';
+      cor += ' bg-red-100 p-1 rounded animate-pulse';
     } else if (diasRestantes === 1) {
       texto = 'Vence Amanhã!';
+      cor += ' bg-red-100 p-1 rounded';
     } else {
+      cor += ' bg-red-100 p-1 rounded';
       texto = `Vence em ${diasRestantes} dias!`;
     }
   } else {
-    cor = 'text-red-800 bg-red-100 p-1 rounded font-bold animate-pulse';
+    cor = 'text-violet-800 bg-violet-100 p-1 rounded font-bold';
     texto = `Vencido há ${Math.abs(diasRestantes)} dias`;
   }
   return { cor, texto, title }; 
