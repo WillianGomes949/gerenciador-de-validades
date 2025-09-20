@@ -99,7 +99,7 @@ export default function HomePage() {
 
           <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-y-4">
             <h1 className="text-3xl font-bold sm:text-4xl text-slate-800 dark:text-slate-200">
-              Controle de Validades
+              Controle de Validade
             </h1>
             <button
               onClick={handleOpenAddModal}

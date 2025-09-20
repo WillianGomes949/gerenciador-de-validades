@@ -1,6 +1,6 @@
 {
   "name": "gerenciador-de-validades",
-  "short_name": "validades",
+  "short_name": "Gerenciar validades",
   "description": "Gerencie produtos",
   "start_url": "/",
   "display": "standalone",

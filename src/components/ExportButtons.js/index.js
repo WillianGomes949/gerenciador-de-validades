@@ -1,12 +1,12 @@
 // src/components/ExportButtons.js
 "use client";
+import Image from 'next/image';
 
-import * as XLSX from 'xlsx';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
+import * as XLSX from "xlsx";
+import jsPDF from "jspdf";
+import autoTable from "jspdf-autotable";
 
 export default function ExportButtons({ products }) {
-
   const handleExportXLSX = () => {
     const worksheet = XLSX.utils.json_to_sheet(products);
     const workbook = XLSX.utils.book_new();
@@ -16,18 +16,22 @@ export default function ExportButtons({ products }) {
 
   const handleExportPDF = () => {
     const doc = new jsPDF();
-    
+
     doc.text("Relatório de Produtos", 14, 16);
 
-    const head = [['ID (EAN)', 'Nome do Produto', 'Qtd.', 'Preço', 'Validade', 'Seção']];
+    const head = [
+      ["ID (EAN)", "Nome do Produto", "Qtd.", "Preço", "Validade", "Seção"],
+    ];
 
-    const body = products.map(p => [
+    const body = products.map((p) => [
       p.id,
       p.nome_produto,
       p.quantidade,
       `R$ ${Number(p.preco).toFixed(2)}`,
-      p.validade ? new Date(p.validade).toLocaleDateString('pt-BR', {timeZone: 'UTC'}) : 'N/A',
-      p.secao || 'N/A' // Adicionando a seção
+      p.validade
+        ? new Date(p.validade).toLocaleDateString("pt-BR", { timeZone: "UTC" })
+        : "N/A",
+      p.secao || "N/A", // Adicionando a seção
     ]);
 
     // Agora, com o plugin importado, a função .autoTable() existirá
@@ -35,7 +39,7 @@ export default function ExportButtons({ products }) {
       head: head,
       body: body,
       startY: 20,
-      theme: 'grid',
+      theme: "grid",
       headStyles: { fillColor: [41, 128, 185] },
     });
 
@@ -44,6 +48,14 @@ export default function ExportButtons({ products }) {
 
   return (
     <div className="flex justify-start gap-3 mb-4">
+      <Image
+      src="/profile.png"
+      alt="Picture of the author"
+      width={40}
+      height={30}
+      className="rounded-full"
+    />
+
       <button
         onClick={handleExportXLSX}
         disabled={!products || products.length === 0}
