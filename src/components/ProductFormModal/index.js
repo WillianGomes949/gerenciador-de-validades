@@ -145,7 +145,7 @@ export default function ProductFormModal({
               step="0.01"
               required
             />
-            
+
             {/* Lógica condicional para o campo de Seção */}
             {isAddingNewSection ? (
               <div className="flex items-center gap-2 col-span-2 md:col-span-1">

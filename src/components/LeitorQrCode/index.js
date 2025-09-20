@@ -3,6 +3,7 @@
 import { Html5QrcodeScanner } from 'html5-qrcode';
 import { useEffect } from 'react';
 
+
 const LeitorQrCode = ({ onScanSuccess }) => {
   useEffect(() => {
     // Configurações do scanner
@@ -31,7 +32,7 @@ const LeitorQrCode = ({ onScanSuccess }) => {
     };
   }, [onScanSuccess]);
 
-  return <div id="qr-reader" style={{ width: '100%', maxWidth: '500px', border: 'transparent', borderRadius: '15px' }}></div>;
+  return <div id="qr-reader"></div>;
 };
 
 export default LeitorQrCode;
