@@ -31,7 +31,7 @@ const LeitorQrCode = ({ onScanSuccess }) => {
     };
   }, [onScanSuccess]);
 
-  return <div id="qr-reader" style={{ width: '100%', maxWidth: '500px' }}></div>;
+  return <div id="qr-reader" style={{ width: '100%', maxWidth: '500px', border: 'transparent', borderRadius: '15px' }}></div>;
 };
 
 export default LeitorQrCode;

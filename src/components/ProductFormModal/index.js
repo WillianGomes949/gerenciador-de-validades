@@ -94,8 +94,8 @@ export default function ProductFormModal({
         <form onSubmit={handleSubmit}>
           {/* <-- AJUSTE: Leitor de código movido para dentro do formulário e simplificado */}
           {!isEditing && (
-            <div className="mb-4 p-4 border rounded-lg dark:border-slate-700">
-              <h3 className="text-center text-slate-600 dark:text-slate-400 mb-2">
+            <div className="mb-4 p-4 border border-lime-400 rounded-lg dark:border-lime-700">
+              <h3 className="text-center text-slate-400 dark:text-slate-200 mb-2">
                 Escanear Código de Barras
               </h3>
               <LeitorQrCode onScanSuccess={handleScanSuccess} />
