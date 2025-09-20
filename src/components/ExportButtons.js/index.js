@@ -1,6 +1,6 @@
 // src/components/ExportButtons.js
 "use client";
-import Image from 'next/image';
+import Image from "next/image";
 
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
@@ -47,29 +47,30 @@ export default function ExportButtons({ products }) {
   };
 
   return (
-    <div className="flex justify-start gap-3 mb-4">
+    <div className="flex justify-between md:justify-start  md:gap-4 items-center mb-4">
       <Image
-      src="/profile.png"
-      alt="Picture of the author"
-      width={40}
-      height={30}
-      className="rounded-full"
-    />
-
-      <button
-        onClick={handleExportXLSX}
-        disabled={!products || products.length === 0}
-        className="px-3 py-2 text-sm font-semibold bg-lime-600 text-white rounded-md hover:bg-lime-700 transition-colors disabled:bg-slate-400 disabled:cursor-not-allowed"
-      >
-        Baixar XLSX
-      </button>
-      <button
-        onClick={handleExportPDF}
-        disabled={!products || products.length === 0}
-        className="px-3 py-2 text-sm font-semibold bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors disabled:bg-slate-400 disabled:cursor-not-allowed"
-      >
-        Baixar PDF
-      </button>
+        src="/profile.png"
+        alt="Picture of the author"
+        width={40}
+        height={30}
+        className="rounded-full"
+      />
+      <div className="flex gap-x-2">
+        <button
+          onClick={handleExportXLSX}
+          disabled={!products || products.length === 0}
+          className="px-3 py-2 text-sm font-semibold bg-lime-600 text-white rounded-md hover:bg-lime-700 transition-colors disabled:bg-slate-400 disabled:cursor-not-allowed"
+        >
+          Baixar XLSX
+        </button>
+        <button
+          onClick={handleExportPDF}
+          disabled={!products || products.length === 0}
+          className="px-3 py-2 text-sm font-semibold bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors disabled:bg-slate-400 disabled:cursor-not-allowed"
+        >
+          Baixar PDF
+        </button>
+      </div>
     </div>
   );
 }

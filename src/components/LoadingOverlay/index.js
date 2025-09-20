@@ -11,7 +11,7 @@ export default function LoadingOverlay({ isLoading }) {
 
   return (
     // O container principal que cobre a tela inteira
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900 bg-opacity-60 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-200 dark:bg-slate-900 bg-opacity-60 backdrop-blur-sm">
       <div className="flex flex-col items-center gap-4">
         {/* O spinner animado da biblioteca */}
         <HashLoader color="#5ea500" size={30} />
