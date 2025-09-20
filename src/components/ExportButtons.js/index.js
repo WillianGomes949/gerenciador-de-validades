@@ -47,14 +47,14 @@ export default function ExportButtons({ products }) {
       <button
         onClick={handleExportXLSX}
         disabled={!products || products.length === 0}
-        className="px-3 py-2 text-sm font-semibold bg-green-700 text-white rounded-md hover:bg-green-800 transition-colors disabled:bg-slate-400 disabled:cursor-not-allowed"
+        className="px-3 py-2 text-sm font-semibold bg-lime-600 text-white rounded-md hover:bg-lime-700 transition-colors disabled:bg-slate-400 disabled:cursor-not-allowed"
       >
         Baixar XLSX
       </button>
       <button
         onClick={handleExportPDF}
         disabled={!products || products.length === 0}
-        className="px-3 py-2 text-sm font-semibold bg-red-700 text-white rounded-md hover:bg-red-800 transition-colors disabled:bg-slate-400 disabled:cursor-not-allowed"
+        className="px-3 py-2 text-sm font-semibold bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors disabled:bg-slate-400 disabled:cursor-not-allowed"
       >
         Baixar PDF
       </button>

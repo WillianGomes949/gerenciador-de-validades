@@ -1,7 +1,10 @@
 // src/components/ProductFormModal.js
 "use client";
+
 import { useState, useEffect } from "react";
 import { INITIAL_FORM_STATE } from "@/utils/productUtils";
+import { RiCloseCircleFill } from "@remixicon/react";
+import LeitorQrCode from "@/components/LeitorQrCode";
 
 export default function ProductFormModal({
   isOpen,
@@ -9,22 +12,53 @@ export default function ProductFormModal({
   productToEdit,
   onSubmitForm,
   isSubmitting,
+  existingSections = [],
 }) {
   const [formState, setFormState] = useState(INITIAL_FORM_STATE);
+  const [isAddingNewSection, setIsAddingNewSection] = useState(false);
+
+  // <-- AJUSTE: A função de scan agora atualiza o formulário diretamente
+  const handleScanSuccess = (decodedText, decodedResult) => {
+    console.log(`Código lido: ${decodedText}`);
+    // Atualiza o campo 'id' (EAN) do formulário com o código lido
+    setFormState((prev) => ({ ...prev, id: decodedText }));
+  };
 
   useEffect(() => {
-    if (productToEdit) {
-      const formattedDate = productToEdit.validade
-        ? new Date(productToEdit.validade).toISOString().split("T")[0]
-        : "";
-      setFormState({ ...productToEdit, validade: formattedDate });
-    } else {
-      setFormState(INITIAL_FORM_STATE);
+    if (isOpen) {
+      if (productToEdit) {
+        const formattedDate = productToEdit.validade
+          ? new Date(productToEdit.validade).toISOString().split("T")[0]
+          : "";
+        setFormState({ ...productToEdit, validade: formattedDate });
+
+        const sectionExists =
+          productToEdit.secao && existingSections.includes(productToEdit.secao);
+        if (productToEdit.secao && !sectionExists) {
+          setIsAddingNewSection(true);
+        } else {
+          setIsAddingNewSection(false);
+        }
+      } else {
+        setFormState(INITIAL_FORM_STATE);
+        setIsAddingNewSection(false);
+      }
     }
-  }, [productToEdit, isOpen]);
+  }, [productToEdit, isOpen, existingSections]);
 
   const handleInputChange = (e) => {
-    setFormState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    if (name === "secao" && value === "--add-new--") {
+      setIsAddingNewSection(true);
+      setFormState((prev) => ({ ...prev, secao: "" }));
+    } else {
+      setFormState((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleCancelAddNewSection = () => {
+    setIsAddingNewSection(false);
+    setFormState((prev) => ({ ...prev, secao: "" }));
   };
 
   const handleSubmit = (e) => {
@@ -38,7 +72,7 @@ export default function ProductFormModal({
 
   return (
     <div
-      className="dark:bg-slate-900 dark:text-slate-200 dark:bg-opacity-60 fixed inset-0 bg-black/50 z-40 flex justify-center items-center "
+      className="dark:bg-slate-900 dark:text-slate-200 dark:bg-opacity-60 fixed inset-0 bg-black/50 z-40 flex justify-center items-center"
       onClick={onClose}
     >
       <div
@@ -49,15 +83,25 @@ export default function ProductFormModal({
           <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-200">
             {isEditing ? "Editar Produto" : "Adicionar Novo Produto"}
           </h2>
-          <button
-            onClick={onClose}
-            className="text-2xl text-slate-500 hover:text-slate-800"
-          >
-            &times;
+          <button onClick={onClose} className="">
+            <RiCloseCircleFill
+              size={36}
+              className="text-lime-600 hover:text-lime-700 transition-colors duration-200"
+            />
           </button>
         </div>
 
         <form onSubmit={handleSubmit}>
+          {/* <-- AJUSTE: Leitor de código movido para dentro do formulário e simplificado */}
+          {!isEditing && (
+            <div className="mb-4 p-4 border rounded-lg dark:border-slate-700">
+              <h3 className="text-center text-slate-600 dark:text-slate-400 mb-2">
+                Escanear Código de Barras
+              </h3>
+              <LeitorQrCode onScanSuccess={handleScanSuccess} />
+            </div>
+          )}
+
           <fieldset
             disabled={isSubmitting}
             className="grid grid-cols-1 md:grid-cols-2 gap-4"
@@ -65,12 +109,13 @@ export default function ProductFormModal({
             <input
               type="text"
               name="id"
+              // O valor agora vem do formState, que é atualizado pelo scanner ou manualmente
               value={formState.id}
               onChange={handleInputChange}
               placeholder="EAN (Código de Barras)"
               required
+              // Desabilitado na edição para não alterar o ID do produto
               disabled={isEditing}
-              className="p-3 border-lime-300 border-1 rounded-md disabled:bg-slate-200 dark:disabled:bg-slate-700 col-span-2 md:col-span-1"
             />
 
             <input
@@ -80,7 +125,6 @@ export default function ProductFormModal({
               onChange={handleInputChange}
               placeholder="Nome do Produto"
               required
-              className="p-3 border-lime-300 border-1 rounded-md col-span-2 md:col-span-1"
             />
 
             <input
@@ -90,7 +134,6 @@ export default function ProductFormModal({
               onChange={handleInputChange}
               placeholder="Quantidade"
               required
-              className="p-3 border-lime-300 border-1 rounded-md col-span-2 md:col-span-1"
             />
 
             <input
@@ -101,19 +144,52 @@ export default function ProductFormModal({
               placeholder="Preço (ex: 9,99)"
               step="0.01"
               required
-              className="p-3 border-lime-300 border-1 rounded-md col-span-2 md:col-span-1"
             />
-            <input
-                type="text"
+            
+            {/* Lógica condicional para o campo de Seção */}
+            {isAddingNewSection ? (
+              <div className="flex items-center gap-2 col-span-2 md:col-span-1">
+                <input
+                  type="text"
+                  name="secao"
+                  value={formState.secao}
+                  onChange={handleInputChange}
+                  placeholder="Nome da Nova Seção"
+                  required
+                />
+                <button
+                  type="button"
+                  onClick={handleCancelAddNewSection}
+                  className="p-3 bg-red-600 text-white font-bold rounded-md hover:bg-red-700"
+                >
+                  Cancelar
+                </button>
+              </div>
+            ) : (
+              <select
                 name="secao"
                 value={formState.secao}
                 onChange={handleInputChange}
-                placeholder="Seção"
                 required
-                className="p-3 border-lime-300 border-1 rounded-md col-span-2 md:col-span-1"
-              />
+              >
+                <option value="" disabled>
+                  Selecione uma seção...
+                </option>
+                {existingSections.map((s) => (
+                  <option key={s} value={s}>
+                    {s}
+                  </option>
+                ))}
+                <option
+                  value="--add-new--"
+                  className="font-bold text-indigo-600"
+                >
+                  + Adicionar Nova Seção...
+                </option>
+              </select>
+            )}
 
-            <div className="col-span-2 md:col-span-2">
+            <div className="col-span-2">
               <label
                 htmlFor="validade"
                 className="block mb-1 text-sm font-medium text-gray-600 dark:text-gray-500 md:sr-only"
@@ -127,7 +203,6 @@ export default function ProductFormModal({
                 value={formState.validade}
                 onChange={handleInputChange}
                 required
-                className="p-3 border-lime-300 border-1 rounded-md w-full min-h-[48px] text-base "
               />
             </div>
 

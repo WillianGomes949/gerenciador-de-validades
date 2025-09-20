@@ -5,4 +5,8 @@
     background-color: var(--color-gray-800);
   }
 }
-
+@layer components {
+  input, select {
+    @apply p-3 border-lime-300 border-1 rounded-md col-span-2 md:col-span-1 focus:border-indigo-500 focus:border-4 outline-none text-slate-500 w-full
+  }
+}

@@ -1,6 +1,6 @@
 // app/page.js
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   getProducts,
   addProduct,
@@ -77,6 +77,12 @@ export default function HomePage() {
     setIsModalOpen(true);
   };
 
+  const existingSections = useMemo(() => {
+  if (!products) return [];
+  const sections = new Set(products.map(p => p.secao).filter(Boolean));
+  return Array.from(sections).sort();
+}, [products]);
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -126,6 +132,7 @@ export default function HomePage() {
         productToEdit={editingProduct}
         onSubmitForm={handleFormSubmit}
         isSubmitting={isSubmitting}
+        existingSections={existingSections} 
       />
     </div>
   );
