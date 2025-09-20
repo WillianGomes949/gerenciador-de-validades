@@ -26,9 +26,9 @@ export default function ProductList({ products, isLoading, onEdit, onDelete }) {
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md dark:bg-slate-800 dark:text-slate-200">
-      <h2 className="text-center sm:text-left text-2xl font-semibold text-slate-700 mb-4 dark:text-slate-200">Lista de Produtos</h2>
+      <h2 className="text-center sm:text-left text-2xl font-semibold text-slate-600 mb-4 dark:text-slate-200">Lista de Produtos</h2>
       {isLoading ? (
-        <p className="text-center text-slate-500">Carregando...</p>
+        <p className="text-center text-slate-600">Carregando...</p>
       ) : (
         <div className="space-y-4">
           {products.length > 0 ? (
@@ -41,7 +41,7 @@ export default function ProductList({ products, isLoading, onEdit, onDelete }) {
               />
             ))
           ) : (
-            <p className="text-center text-slate-500">Nenhum produto cadastrado.</p>
+            <p className="text-center text-slate-600">Nenhum produto cadastrado.</p>
           )}
           {totalPages > 1 && (
         <div className="flex justify-center items-center gap-4 mt-6">

@@ -49,9 +49,12 @@ export default function ProductListSections({
     setCurrentPage(1);
   }, [selectedSection]);
 
-  const handleSectionClick = (sectionName) => {
-    setSelectedSection(sectionName);
-  };
+  
+const handleSectionClick = (sectionName) => {
+  setSelectedSection(prevSelected => 
+    prevSelected === sectionName ? null : sectionName
+  );
+};
 
   const handleNextPage = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
@@ -63,32 +66,26 @@ export default function ProductListSections({
 
   return (
     <div className="bg-white p-6 rounded-lg shadow-md dark:bg-slate-800">
-      <h2 className="text-center sm:text-left text-2xl font-semibold text-slate-700 mb-4 dark:text-slate-200">
+      <h2 className="text-center sm:text-left text-2xl font-semibold text-slate-600 mb-4 dark:text-slate-200">
         Filtrar por Seção
       </h2>
 
       {isLoading ? (
-        <p className="text-center text-slate-500">Carregando...</p>
+        <p className="text-center text-slate-600">Carregando...</p>
       ) : (
         <>
           {/* 4. Botões de Filtro por Seção */}
-          <div className="mb-6 pb-4 border-b border-slate-200 dark:border-slate-700">
+          <div className="m-2 pb-4 border-b border-slate-200 dark:border-slate-700">
             <div className="flex flex-wrap gap-2">
-              <button
-                onClick={() => setSelectedSection(null)}
-                className="px-4 py-2 text-sm font-semibold rounded-full bg-lime-200 text-lime-700 hover:bg-lime-300 dark:bg-lime-600 dark:text-lime-200 dark:hover:bg-lime-700"
-              >
-                Limpar
-              </button>
               {sectionNames.map((name) => (
                 <button
                   key={name}
                   onClick={() => handleSectionClick(name)}
-                  className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors duration-200 
+                  className={`px-3 py-1 text-sm font-semibold rounded-full transition-colors duration-200 
                     ${
                       selectedSection === name
                         ? "bg-indigo-600 text-white shadow-md"
-                        : "bg-slate-200 text-slate-700 hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600"
+                        : "bg-slate-200 text-slate-600 hover:bg-lime-700 hover:text-slate-200 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-lime-600"
                     }`}
                 >
                   {name}
@@ -100,7 +97,7 @@ export default function ProductListSections({
           {/* 5. Renderização Condicional dos Produtos */}
           {selectedSection ? (
             productsOfSelectedSection.length > 0 ? (
-              <div className="space-y-4">
+              <div className="space-y-2">
                 {currentProductsToDisplay.map((product) => (
                   <ProductItem
                     key={product.id}
@@ -111,19 +108,19 @@ export default function ProductListSections({
                 ))}
               </div>
             ) : (
-              <p className="text-center text-slate-500 dark:text-slate-400">
+              <p className="text-center text-slate-600 dark:text-slate-200">
                 Nenhum produto encontrado nesta seção.
               </p>
             )
           ) : (
-            <p className="text-center text-slate-500 dark:text-slate-400 py-4">
+            <p className="text-center text-slate-600 dark:text-slate-200 py-2">
               Selecione uma seção acima para ver os produtos.
             </p>
           )}
 
           {/* 6. Controles da Paginação (só aparecem se uma seção for selecionada e tiver mais de uma página) */}
           {selectedSection && totalPages > 1 && (
-            <div className="flex justify-center items-center gap-4 mt-6 pt-4 border-t border-slate-200 dark:border-slate-700">
+            <div className="flex justify-center items-center gap-4 mt-6 pt-4 border-t border-slate-200 dark:border-slate-600">
               <button
                 onClick={handlePrevPage}
                 disabled={currentPage === 1}

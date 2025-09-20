@@ -110,7 +110,7 @@ export default function HomePage() {
   return (
     <>
       <LoadingOverlay isLoading={isLoading} />
-      <div className="min-h-screen bg-slate-50 text-slate-800 font-sans dark:bg-slate-900 dark:text-slate-200">
+      <div className="min-h-screen bg-slate-50 text-slate-600 font-sans dark:bg-slate-900 dark:text-slate-200">
         <main className="container mx-auto p-4 md:p-8">
           <section className="mb-8 ">
             {/* Passamos a lista COMPLETA de produtos para ele */}
@@ -119,7 +119,7 @@ export default function HomePage() {
             )}
 
             <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-y-4">
-              <h1 className="text-3xl font-bold md:text-3xl text-slate-800 dark:text-slate-200">
+              <h1 className="text-3xl font-bold md:text-3xl text-slate-600 dark:text-slate-200">
                 Controle de Validade
               </h1>
               <div className="flex flex-col w-full gap-4 md:gap-2 lg:flex-row md:w-80 lg:w-xl lg:justify-end lg:items-center">
@@ -134,7 +134,7 @@ export default function HomePage() {
             </div>
 
             <ProductListSections
-              products={products}
+              products={filteredProducts}
               isLoading={isLoading}
               onEdit={handleOpenEditModal}
               onDelete={handleDelete}

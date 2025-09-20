@@ -80,13 +80,13 @@ export default function ProductFormModal({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-2xl font-semibold text-slate-800 dark:text-slate-200">
+          <h2 className="text-2xl font-semibold text-slate-600 dark:text-slate-200">
             {isEditing ? "Editar Produto" : "Adicionar Novo Produto"}
           </h2>
           <button onClick={onClose} className="">
             <RiCloseCircleFill
               size={36}
-              className="text-lime-600 hover:text-lime-700 transition-colors duration-200"
+              className="text-lime-600 dark:text-slate-200 hover:text-lime-700 transition-colors duration-200"
             />
           </button>
         </div>
@@ -95,7 +95,7 @@ export default function ProductFormModal({
           {/* <-- AJUSTE: Leitor de código movido para dentro do formulário e simplificado */}
           {!isEditing && (
             <div className="mb-4 p-4 border border-lime-400 rounded-lg dark:border-lime-700">
-              <h3 className="text-center text-slate-400 dark:text-slate-200 mb-2">
+              <h3 className="text-center text-slate-600 dark:text-slate-200 mb-2">
                 Escanear Código de Barras
               </h3>
               <LeitorQrCode onScanSuccess={handleScanSuccess} />
@@ -160,7 +160,7 @@ export default function ProductFormModal({
                 <button
                   type="button"
                   onClick={handleCancelAddNewSection}
-                  className="p-3 bg-red-600 text-white font-bold rounded-md hover:bg-red-700"
+                  className="p-3 bg-red-600 text-slate-200 font-bold rounded-md hover:bg-red-700"
                 >
                   Cancelar
                 </button>
@@ -171,12 +171,13 @@ export default function ProductFormModal({
                 value={formState.secao}
                 onChange={handleInputChange}
                 required
+                className="p-3 border-lime-400 border-1 rounded-md col-span-2 md:col-span-1 focus:border-indigo-500 focus:border-4 outline-none text-slate-600 dark:text-slate-200  w-full"
               >
                 <option value="" disabled>
                   Selecione uma seção...
                 </option>
                 {existingSections.map((s) => (
-                  <option key={s} value={s}>
+                  <option key={s} value={s} className="text-slate-600">
                     {s}
                   </option>
                 ))}
@@ -209,7 +210,7 @@ export default function ProductFormModal({
             <div className="md:col-span-2 flex gap-4 mt-2 col-span-2">
               <button
                 type="submit"
-                className="flex-grow p-3 bg-lime-600 text-white font-bold rounded-md hover:bg-lime-700 disabled:bg-lime-300 "
+                className="flex-grow p-3 bg-lime-600 text-slate-200 font-bold rounded-md hover:bg-lime-700 disabled:bg-lime-300 "
               >
                 {isSubmitting
                   ? "Salvando..."

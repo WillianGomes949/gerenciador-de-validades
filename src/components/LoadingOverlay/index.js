@@ -14,7 +14,7 @@ export default function LoadingOverlay({ isLoading }) {
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-200 dark:bg-slate-900 bg-opacity-60 backdrop-blur-sm">
       <div className="flex flex-col items-center gap-4">
         {/* O spinner animado da biblioteca */}
-        <HashLoader color="#5ea500" size={30} />
+        <HashLoader color="#5ea500" size={40} />
         <p className="text-lime-600 text-center dark:text-slate-200 font-semibold text-lg m-4">
           Carregando Dados...
         </p>

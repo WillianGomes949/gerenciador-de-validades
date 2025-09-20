@@ -8,7 +8,7 @@ export default function ProductItem({ product, onEdit, onDelete }) {
   return (
     <div
       className="grid grid-cols-2 gap-x-3 gap-y-3 p-4 bg-slate-50 border-slate-200 border-2 rounded-md hover:shadow-md transition-shadow
-sm:grid-cols-3 lg:grid-cols-6 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200"
+sm:grid-cols-3 lg:grid-cols-6 dark:bg-slate-700 dark:border-slate-700 dark:text-slate-200"
     >
       {/* Nome e ID (Sempre no topo em telas menores) */}
       <div className="col-span-2 sm:col-span-4 lg:col-span-2">
