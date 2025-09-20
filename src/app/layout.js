@@ -7,12 +7,11 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata = {
   title: 'gerenciador de validades',
   description: 'Criado com Next.js e PWA',
-  // Adicione as tags do manifest aqui
   manifest: '/manifest.json',
 }
 
 export const viewport = {
-  themeColor: '#000000', // A linha 'themeColor' foi MOVIDA para cá.
+  themeColor: '#000000'
 };
 
 export default function RootLayout({ children }) {
