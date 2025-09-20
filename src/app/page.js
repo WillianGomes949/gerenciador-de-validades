@@ -12,6 +12,7 @@ import ProductList from "@/components/ProductList";
 import { sortProducts } from "@/utils/productUtils";
 import ProductListSections from "@/components/ProductListSections";
 import ExportButtons from '@/components/ExportButtons';
+import LoadingOverlay from '@/components/LoadingOverlay';
 
 export default function HomePage() {
   const [products, setProducts] = useState([]);
@@ -88,6 +89,8 @@ export default function HomePage() {
   }, []);
 
   return (
+    <>
+    <LoadingOverlay isLoading={isLoading} />
     <div className="min-h-screen bg-slate-50 text-slate-800 font-sans dark:bg-slate-900 dark:text-slate-200">
       <main className="container mx-auto p-4 md:p-8">
         <section className="mb-8 ">
@@ -135,5 +138,6 @@ export default function HomePage() {
         existingSections={existingSections} 
       />
     </div>
+    </>
   );
 }
