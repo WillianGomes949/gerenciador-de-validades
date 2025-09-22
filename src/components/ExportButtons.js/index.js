@@ -5,6 +5,7 @@ import Image from "next/image";
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
+import Link from "next/link";
 
 export default function ExportButtons({ products }) {
   const handleExportXLSX = () => {
@@ -48,14 +49,16 @@ export default function ExportButtons({ products }) {
 
   return (
     <div className="flex justify-between md:justify-start  md:gap-4 items-center mb-4">
-      <div className="dark:bg-slate-300 rounded-xl">
-        <Image
-          src="/profile.png"
-          alt="Picture of the author"
-          width={40}
-          height={30}
-          className="rounded-full"
-        />
+      <div className="dark:bg-slate-300 rounded-xl p-2">
+        <Link href="/">
+          <Image
+            src="/profile.png"
+            alt="Picture of the author"
+            width={20}
+            height={20}
+            className="rounded-full"
+          />
+        </Link>
       </div>
 
       <div className="flex gap-x-2">
