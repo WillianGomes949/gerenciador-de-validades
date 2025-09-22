@@ -50,7 +50,7 @@ export default function ExportButtons({ products }) {
   return (
     <div className="flex justify-between md:justify-start  md:gap-4 items-center mb-4">
       <div className="dark:bg-slate-300 rounded-xl p-2">
-        <Link href="/">
+        <Link href="/" className="p-2">
           <Image
             src="/profile.png"
             alt="Picture of the author"
