@@ -49,8 +49,8 @@ export default function ExportButtons({ products }) {
 
   return (
     <div className="flex justify-between md:justify-start  md:gap-4 items-center mb-4">
-      <div className="dark:bg-slate-300 rounded p-2">
-        <Link href="/" className="p-2">
+      {/* <div className="dark:bg-slate-300 rounded p-2">
+        <Link href="/">
           <Image
             src="/profile.png"
             alt="Picture of the author"
@@ -59,7 +59,7 @@ export default function ExportButtons({ products }) {
             className="rounded"
           />
         </Link>
-      </div>
+      </div> */}
 
       <div className="flex gap-x-2">
         <button
